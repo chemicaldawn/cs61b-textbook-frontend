@@ -1,5 +1,6 @@
 ---
 import Logo from "../assets/images/bee.png"
+import Search from "./search.astro"
 import Sidebar from "./sidebar.astro"
 
 const { section } = Astro.props
@@ -24,8 +25,8 @@ const { section } = Astro.props
 			<div id="title">
 				<img src={Logo.src}>
 				<h1>CS61B Textbook</h1>
-
 			</div>
+			<Search></Search>
 		</div>
 		<div id="main">
 			<div id="sidebar">
@@ -71,8 +72,6 @@ const { section } = Astro.props
 		padding: 0.25rem;
 		gap: 1rem;
 
-		margin-left: 2rem;
-
 		img {
 			max-height: 2.5rem;
 			aspect-ratio: 1;
@@ -87,8 +86,12 @@ const { section } = Astro.props
 		position: sticky;
 		top: 0;
 
+		padding-left: 2rem;
+		padding-right: 2rem;
+
 		display: flex;
 		flex-direction: row;
+		justify-content: space-between;
 		align-items: center;
 
 		z-index: 2;
@@ -264,5 +267,23 @@ const { section } = Astro.props
 
 			text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.7);
 		}
+	}
+
+	div#search {
+		padding: 0.25rem;
+		border: 0.5px solid var(--border);
+		border-radius: 0.5rem;
+
+		width: 20vw;
+	}
+
+	input {
+		width: 100%;
+
+		font-size: 0.925rem;
+		color: white;
+
+		background: none;
+		border: none !important;
 	}
 </style>

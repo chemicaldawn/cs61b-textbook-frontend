@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layout/layout.astro";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+    const textbook = await getCollection('textbook')
+    return textbook.map((page) => {
+        let sectionName = page.data.section
+        let chapterName = page.data.section.toString().substring(0,1)
+        return {
+            params : {
+                chapter : chapterName,
+                page : page.data.title.toLowerCase().replaceAll(" ","-")
+            },
+            props : {
+                page : page,
+                section: sectionName,
+                title: page.data.title
+            }
+        }
+    })
+}
+
+const { Content } = await render(Astro.props.page)
+const title = Astro.props.title
+const section = Astro.props.section
+---
+<div class="article-title">
+    <h1 class="section">{section}</h1>
+    <h1 class="title">{title}</h1>
+</div>
+<Content></Content>

@@ -1,0 +1,59 @@
+---
+// god help me
+
+import { getCollection } from "astro:content"
+
+class Searchable {
+    content : string
+    
+    constructor(content : string) {
+        this.content = content
+    }
+}
+
+let searchables : Searchable[] = [];
+
+(await getCollection('textbook')).map((page) => {
+    searchables.push(new Searchable(page.body!))
+})
+---
+
+<div id="search">
+    <input id="search-textbox" type="text" placeholder="Search...">
+</div>
+
+<script define:vars={{searchables}}>
+
+    class SearchResult {
+
+    constructor(content, searchstring, range) {
+            this.pos = content.indexOf(searchstring)
+
+            if (this.pos == -1) {
+                this.isEmpty = true
+                this.surroundFront = ""
+                this.searchString = searchstring
+                this.surroundBack = ""
+            } else {
+                this.isEmpty = false
+                this.searchString = searchstring
+
+                this.surroundFront = content.substring(Math.max(this.pos - range, 0), this.pos)
+                this.surroundBack = content.substring(this.pos + searchstring.length, Math.min(this.pos + searchstring.length + range, content.length - 1))
+            }
+        }
+    }
+
+    let textbox = document.querySelector("input#search-textbox")
+    let mostRecentTimeout;
+    textbox.addEventListener("input", (event) => {
+        clearTimeout(mostRecentTimeout)
+        mostRecentTimeout = setTimeout(() => {
+
+            searchables.forEach((searchable) => {
+                let result = new SearchResult(searchable.content, textbox.value, 20)
+                console.log(result)
+            });
+        }, 300)
+    })
+</script>
