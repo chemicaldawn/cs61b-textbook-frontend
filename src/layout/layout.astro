@@ -1,6 +1,8 @@
 ---
 import Logo from "../assets/images/bee.png"
 import Sidebar from "./sidebar.astro"
+
+const { section } = Astro.props
 ---
 
 <!doctype html>
@@ -27,7 +29,7 @@ import Sidebar from "./sidebar.astro"
 		</div>
 		<div id="main">
 			<div id="sidebar">
-				<Sidebar></Sidebar>
+				<Sidebar section={section}></Sidebar>
 			</div>
 			<div id="content">
 				<slot />
@@ -127,7 +129,7 @@ import Sidebar from "./sidebar.astro"
 			margin-bottom: 0.5rem;
 
 			cursor: pointer;
-			transition: margin 75ms;
+			transition: margin 100ms;
 
 			div.section {
 				color: gray;
@@ -138,8 +140,16 @@ import Sidebar from "./sidebar.astro"
 			}
 		}
 
+		div.sidebar-item.active {
+			margin-left: 1rem !important;
+
+			div.name {
+				color: #d79921 !important;
+			}
+		}
+
 		div.sidebar-item:hover {
-			margin-left: 0.5rem !important;
+			margin-left: 0.5rem;
 
 			div.name {
 				color: #ffe4a5;

@@ -1,16 +1,32 @@
 ---
+const { section } = Astro.props
+
 class SidebarItem {
 
     chapter : number;
     id : number;
     name : string;
     isSection : boolean;
+    startsActive : boolean;
 
-    constructor(chapter : number, id : number, name : string, isSection : boolean) {
+    classList : string;
+
+    constructor(chapter : number, id : number, name : string, isSection : boolean, startsActive : boolean) {
         this.chapter = chapter;
         this.id = id;
         this.name = name;
         this.isSection = isSection;
+        this.startsActive = startsActive;
+
+        this.classList = "sidebar-item"
+
+        if (isSection) {
+            this.classList += " section"
+        }
+
+        if (startsActive) {
+            this.classList += " active"
+        }
     }
 }
 const items : SidebarItem[] = []
@@ -29,7 +45,7 @@ const paths =  Object.entries(import.meta.glob("../../content/**/*.mdx", { eager
             isSection = true
         }
 
-        items.push(new SidebarItem(Number(chapter),Number(id),entry[1].frontmatter.title,isSection))
+        items.push(new SidebarItem(Number(chapter),Number(id),entry[1].frontmatter.title,isSection, Number(id) == Number(section)))
     }
 })
 
@@ -46,10 +62,27 @@ items.sort((a : SidebarItem, b : SidebarItem) => {
 console.log(items)
 ---
 {items.map((item : SidebarItem) => 
-    <div class={item.isSection ? "sidebar-item section" : "sidebar-item"}
+    <div class={item.classList}
         hx-get=`/partials/${item.id}` hx-on="click" hx-target="#content"
     >
         <div class="section">{String(item.id)}</div>
         <div class="name">{item.name}</div>
     </div>
 )}
+
+<script>
+    const sidebarItems = document.querySelectorAll(".sidebar-item")
+
+    function clearActive() {
+        sidebarItems.forEach((item) => {
+            item.classList.remove("active")
+        })
+    }
+
+    sidebarItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            clearActive()
+            item.classList.add("active")
+        })
+    })
+</script>

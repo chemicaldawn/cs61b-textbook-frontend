@@ -29,7 +29,7 @@ const Content = Astro.props.content
 const title = Astro.props.title
 const section = Astro.props.section
 ---
-<Layout>
+<Layout section={section}>
     <div class="article-title">
         <h1 class="section">{section}</h1>
         <h1 class="title">{title}</h1>
