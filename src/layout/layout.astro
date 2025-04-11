@@ -1,0 +1,258 @@
+---
+import Logo from "../assets/images/bee.png"
+import Sidebar from "./sidebar.astro"
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>CS61B Textbook</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+	
+		<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+	</head>
+	<body>
+		<div id="header">
+			<div id="title">
+				<img src={Logo.src}>
+				<h1>CS61B Textbook</h1>
+
+			</div>
+		</div>
+		<div id="main">
+			<div id="sidebar">
+				<Sidebar></Sidebar>
+			</div>
+			<div id="content">
+				<slot />
+			</div>
+		</div>
+	</body>
+</html>
+
+<style>
+	:root {
+		
+		--dark: rgb(30, 30, 30);
+		--darker: rgb(22, 21, 21);
+
+		--border: rgb(83, 83, 83);
+
+		--yellow: #d79921;
+		--blue: #79b09f;
+	}
+
+	html,
+	body {
+		display: flex;
+		flex-direction: column;
+
+		margin: 0;
+		width: 100%;
+		height: 100%;
+
+		background-color: var(--dark)
+	}
+
+	div#title {
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		padding: 0.25rem;
+		gap: 1rem;
+
+		margin-left: 2rem;
+
+		img {
+			max-height: 2.5rem;
+			aspect-ratio: 1;
+		}
+		h1 {
+			font-size: 1.35rem;
+			font-weight: 700;
+		}
+	} 
+
+	div#header {
+		position: sticky;
+		top: 0;
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		z-index: 2;
+
+		box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.454);
+
+		flex-grow: 0;
+		flex-shrink: 1;
+		background-color: var(--dark);
+
+		border-top: 0.5px solid var(--border);
+		border-bottom: 0.5px solid var(--border);
+	}
+
+	div#main {
+		container-type: size;
+
+		display: flex;
+		flex-direction: row;
+		flex-grow: 1;
+	}
+
+	div#sidebar {
+		flex-grow: 0;
+		min-width: 18vw;
+
+		padding: 1rem;
+
+		background-color: var(--darker);
+		border-right: 0.5px solid var(--border);
+
+		div.sidebar-item {
+			display: flex;
+			font-size: 0.925rem;
+			flex-direction: row;
+			gap: 0.75rem;
+
+			margin-bottom: 0.5rem;
+
+			cursor: pointer;
+			transition: margin 75ms;
+
+			div.section {
+				color: gray;
+			}
+
+			div.name {
+				transition: color 300ms;
+			}
+		}
+
+		div.sidebar-item:hover {
+			margin-left: 0.5rem !important;
+
+			div.name {
+				color: #ffe4a5;
+			}
+		}
+
+		div.sidebar-item.section {
+			padding-left: 2rem;
+			margin-bottom: 0rem !important;
+		}
+	}
+
+	div#content {
+		overflow: scroll;
+
+		max-height: 100cqh;
+		z-index: 1;
+		box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.454);
+
+		padding-left: 6vw;
+		padding-right: 20vw;
+
+		padding-top: 2rem;
+
+		flex-grow: 1;
+	}
+</style>
+
+<style is:global>
+	h1, h2, p, li, a, div {
+		font-family: Inter;
+		color: white;
+
+		line-height: 1.6;
+	}
+
+	p, li, a {
+		font-size: 1rem;
+		font-weight: 355;
+	}
+
+	a {
+		color: var(--blue) !important
+	}
+
+	code {
+		color: #f9f9f9;
+
+		font-family: 'JetBrains Mono';
+		font-size: 0.825rem;
+
+		background-color: rgb(17, 17, 19);
+
+		border: 1px solid rgb(59, 56, 66);
+		border-radius: 0.25rem;
+
+		padding: 0.1rem;
+		padding-left: 0.3rem;
+		padding-right: 0.3rem;
+
+		white-space: nowrap;
+	}
+
+	pre.astro-code {
+		padding: 0.9rem;
+		border-radius: 0.4rem;
+
+		display: flex;
+		flex-direction: column;
+		gap:0.05rem;
+	}
+
+	pre.astro-code code {
+		white-space: inherit !important;
+		background: none;
+		border: none;
+
+		span.line {
+			display: block;
+			line-height: 0.3;
+			padding: 1px;
+			width: 100%;
+		}
+
+		span.line:hover {
+		}
+	}
+
+	div.article-title {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+
+		font-size: 1.2rem;
+		font-weight: 600;
+
+		h1.section {
+			color:rgb(255, 255, 255);
+			background-color: var(--yellow);
+			border-radius: 0.5rem;
+
+			font-size: 1.5rem;
+			padding-left: 0.75rem;
+			padding-right: 0.75rem;
+
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.403);
+		}
+
+		h1.title {
+			font-size: 2rem;
+			margin: 0;
+
+			text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.7);
+		}
+	}
+</style>
