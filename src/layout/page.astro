@@ -1,0 +1,16 @@
+---
+import { render, getEntry } from "astro:content"
+
+const { slug } = Astro.props
+
+const entry = await getEntry("textbook", slug)
+if (!entry) {
+    throw new Error('Could not find textbook page with slug ' + slug);
+}
+const { Content, headings } = await render(entry)
+---
+<div class="article-title">
+    <h1 class="section">{entry.data.section}</h1>
+    <h1 class="title">{entry.data.title}</h1>
+</div>
+<Content />

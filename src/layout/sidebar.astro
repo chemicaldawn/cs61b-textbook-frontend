@@ -9,26 +9,28 @@ class SidebarItem {
 
     chapter : string;
     section : string;
-    textSection : string;
-    name : string;
+    title : string;
+    slug : string;
     isChapter : boolean;
     startsActive : boolean;
 
     classList : string;
     url : string;
     pushUrl : string;
+    pagemapUrl : string;
 
-    constructor(chapter : string, section : string, name : string, isChapter : boolean, startsActive : boolean) {
+    constructor(chapter : string, section : string, title: string, slug : string, isChapter : boolean, startsActive : boolean) {
         this.chapter = chapter;
         this.section = section;
-        this.textSection = section.replace("-",".")
-        this.name = name;
+        this.title = title;
+        this.slug = slug;
         this.isChapter = isChapter;
         this.startsActive = startsActive;
 
         this.classList = "sidebar-item"
-        this.pushUrl = `/${chapter}/${name.toLowerCase().replaceAll(" ","-")}`
+        this.pushUrl = `/${chapter}/${slug}`
         this.url = "/partials" + this.pushUrl
+        this.pagemapUrl = "/pagemap" + this.pushUrl
 
         if (!this.isChapter) {
             this.classList += " section"
@@ -47,7 +49,7 @@ const paths = (await getCollection('textbook')).map((page) => {
     let sectionName = String(page.data.section)
     let isChapter = !String(sectionName).includes(".")
 
-    items.push(new SidebarItem(chapterName, sectionName, page.data.title, isChapter, sectionName === section))
+    items.push(new SidebarItem(chapterName, sectionName, page.data.title, page.id, isChapter, sectionName === section))
 })
 
 items.sort((a : SidebarItem, b : SidebarItem) => {
@@ -56,23 +58,25 @@ items.sort((a : SidebarItem, b : SidebarItem) => {
     } else if (a.isChapter || a.isChapter) {
         return Number(a.isChapter) - Number(b.isChapter)
     } else {
-        return Number(a.textSection) - Number(b.textSection)
+        return Number(a.section) - Number(b.section)
     }
 })
 ---
 <div class="sidebar-title">Table of Contents</div>
 {items.map((item : SidebarItem) => 
     <div class={item.classList}
-        query-url={item.url} push-url={item.pushUrl}
+        query-url={item.url} push-url={item.pushUrl} pagemap-url={item.pagemapUrl}
     >
-        <div class="section">{item.textSection}</div>
-        <div class="name">{item.name}</div>
+        <div class="section">{item.section}</div>
+        <div class="name">{item.title}</div>
     </div>
 )}
 
 <script>
     const sidebarItems = document.querySelectorAll(".sidebar-item")
+
     const content = document.querySelector("div#content")
+    const pagemap = document.querySelector("div#pagemap")
 
     function clearActive() {
         sidebarItems.forEach((item) => {
@@ -89,12 +93,16 @@ items.sort((a : SidebarItem, b : SidebarItem) => {
             setTimeout(() => {
                 $.get(item.getAttribute("query-url")!, (data) => {
                     content!.innerHTML = data
+
+                    history.pushState("","",item.getAttribute("push-url"))
+
+                    content?.scrollTo(0,0)
+                    content?.classList.remove("hidden")
                 })
 
-                history.pushState("","",item.getAttribute("push-url"))
-
-                content?.scrollTo(0,0)
-                content?.classList.remove("hidden")
+                $.get(item.getAttribute("pagemap-url")!, (data) => {
+                    pagemap!.innerHTML = data
+                })
             }, 100)
         })
     })

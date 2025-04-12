@@ -5,7 +5,8 @@ const textbook = defineCollection({
     loader: glob({ pattern: "**/*.mdx", base: "./content-legacy/"}),
     schema: z.object({
         title: z.string(),
-        section: z.number()
+        section: z.number(),
+        slug: z.string()
     })
 })
 

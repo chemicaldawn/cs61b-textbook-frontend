@@ -1,0 +1,42 @@
+---
+import { getEntry } from "astro:content";
+const { slug } = Astro.props
+
+const entry = await getEntry("textbook", slug)
+if (!entry) {
+    throw new Error('Could not find textbook page with slug ' + slug);
+}
+
+let extra : string[] = []
+let matches : RegExpExecArray[] = []
+
+if (entry.body) {
+    matches = [...entry.body!.matchAll(/#{2,4} *(\b[\w\s\.\-\:#\(\)][^\n\<]+\b\)?)/g)]
+}
+
+if (matches.length == 0) {
+    extra.push("🦗")
+}
+---
+<div class="pagemap-title">On this page</div>
+{ extra.map((ex) => 
+    <div class="pagemap-heading">{ex}</div>
+)}
+{ matches.map((match) => 
+    <div class="pagemap-heading">{match[1].replaceAll(/\\/g,"")}</div>
+)}
+
+<script>
+    let content = document.querySelector("div#content")
+    document.querySelectorAll("div.pagemap-heading").forEach((heading) => {
+        heading.addEventListener("click", (event) => {
+            let id = heading.innerHTML.toLowerCase().replaceAll(/\s+/g,"-").replaceAll(/[^0-9a-z\-]*/g,"")
+            console.log(id)
+            let query = document.getElementById(id)
+
+            if (query) {
+                query.scrollIntoView(true)
+            }
+        })
+    })
+</script>
