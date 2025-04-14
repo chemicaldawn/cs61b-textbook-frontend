@@ -28,9 +28,18 @@ class SidebarItem {
         this.startsActive = startsActive;
 
         this.classList = "sidebar-item"
-        this.pushUrl = `/${chapter}/${slug}`
-        this.url = "/partials" + this.pushUrl
-        this.pagemapUrl = "/pagemap" + this.pushUrl
+
+        let baseUrl : string = `/${chapter}/${slug}`
+
+        if (slug != "index") {
+            this.pushUrl = `/${chapter}/${slug}`
+        } else {
+            this.pushUrl = '/'
+        }
+
+        this.url = "/partials" + baseUrl
+        this.pagemapUrl = "/pagemap" + baseUrl
+        
 
         if (!this.isChapter) {
             this.classList += " section"
@@ -67,7 +76,7 @@ items.sort((a : SidebarItem, b : SidebarItem) => {
     <div class={item.classList}
         query-url={item.url} push-url={item.pushUrl} pagemap-url={item.pagemapUrl}
     >
-        <div class="section">{item.section}</div>
+        <div class="section" style={Math.floor(Number(item.section)) == 0 ? "display:none" : ""}>{item.section}</div>
         <div class="name">{item.title}</div>
     </div>
 )}
