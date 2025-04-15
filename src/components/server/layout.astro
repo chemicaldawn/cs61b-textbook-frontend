@@ -1,5 +1,5 @@
 ---
-import Logo from "../assets/images/bee.png"
+import Logo from "../../assets/images/bee.png"
 import Page from "./page.astro"
 import Pagemap from "./pagemap.astro"
 import Search from "./search.astro"
@@ -125,33 +125,89 @@ const { slug } = Astro.props
 		min-width: 18vw;
 		max-width: 18vw;
 
+		overflow-x: hidden;
+		overflow-y: scroll;
+
 		padding: 1rem;
 
 		background-color: var(--darker);
 		border-right: 0.5px solid var(--border);
+
+		div.sidebar-group {
+
+			div.sidebar-chapter {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+
+				img {
+					width: 1rem;
+					transition: transform 75ms, background-color 75ms;
+
+					border-radius: 1rem;2
+					padding: 0.2rem;
+				}
+
+				img:hover {
+					background-color: rgba(255, 255, 255, 0.073);
+				}
+			}
+
+			.subitems-container {
+				display: grid;
+				grid-template-rows: 0fr;
+
+				transition: grid-template-rows 150ms ease-in-out;
+			}
+
+			.subitems-container.open {
+				grid-template-rows: 1fr;
+			}
+
+			.subitems {
+				overflow: hidden;
+			}
+		}
+
+		div.sidebar-group.open {
+			grid-template-rows: 1fr 0fr;
+		}
 
 		div.sidebar-title {
 			color: rgb(107, 106, 104);
 		}
 
 		div.sidebar-item {
+
 			display: flex;
 			font-size: 0.925rem;
 			flex-direction: row;
+
 			gap: 0.75rem;
 
 			margin-top: 0.5rem;
 			margin-bottom: 0.5rem;
 
 			cursor: pointer;
+			user-select: none;
 			transition: margin 100ms;
 
 			div.section {
-				color: gray;
+				color: rgb(96, 96, 96);
 			}
 
 			div.name {
+				color: white;
 				transition: color 300ms;
+			}
+		}
+
+		div.sidebar-item:hover {
+			margin-left: 0.5rem;
+
+			div.name {
+				color: #ffe4a5 !important;
 			}
 		}
 
@@ -163,18 +219,14 @@ const { slug } = Astro.props
 			}
 		}
 
-		div.sidebar-item:hover {
-			margin-left: 0.5rem;
-
-			div.name {
-				color: #ffe4a5;
-			}
-		}
-
 		div.sidebar-item.section {
 			padding-left: 2rem;
 			margin-top: 0rem !important;
 			margin-bottom: 0.25rem !important;
+
+			div.name {
+				color: rgb(207, 207, 207);
+			}
 		}
 	}
 

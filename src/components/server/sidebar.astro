@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import { string } from "astro:schema";
+import { textChangeRangeIsUnchanged } from "typescript";
+
+import SidebarComponent from "../client/sidebar.svelte"
+import { SidebarGroup, SidebarItem } from "../lib.ts"
+import type { loadRenderers } from "astro:container";
+
+const { section } = Astro.props
+
+const groups : Map<String, SidebarGroup> = new Map();
+const items : SidebarItem[] = []
+const paths = (await getCollection('textbook')).map((page) => {
+    
+    let chapterName = String(page.data.section).substring(0,1)
+    let sectionName = String(page.data.section)
+    let isChapter = !String(sectionName).includes(".")
+
+    items.push(new SidebarItem(chapterName, sectionName, page.data.title, page.id, isChapter, sectionName === section))
+})
+
+items.sort((a : SidebarItem, b : SidebarItem) => {
+    if (a.chapter != b.chapter) {
+        return Number(a.chapter) - Number(b.chapter)
+    } else if (a.isChapter || a.isChapter) {
+        return Number(a.isChapter) - Number(b.isChapter)
+    } else {
+        return Number(a.section) - Number(b.section)
+    }
+})
+
+items.forEach((item : SidebarItem) => {
+    if (item.isChapter) {
+        groups.set(item.chapter, new SidebarGroup(item.chapter, item))
+    } else {
+        if (groups.has(item.chapter)) {
+            groups.get(item.chapter)!.addItem(item)
+        }
+    }
+})
+---
+<div class="sidebar-title">Table of Contents</div>
+<SidebarComponent groups={groups} client:load></SidebarComponent>

@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Page from "../../../layout/page.astro"
+import Page from "../../../components/server/page.astro"
 
 export async function getStaticPaths() {
     const textbook = await getCollection('textbook')

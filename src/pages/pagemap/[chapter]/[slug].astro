@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Pagemap from "../../../layout/pagemap.astro"
+import Pagemap from "../../../components/server/pagemap.astro"
 
 export async function getStaticPaths() {
     const textbook = await getCollection('textbook')
