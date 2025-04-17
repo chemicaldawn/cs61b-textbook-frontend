@@ -371,10 +371,14 @@ const { slug } = Astro.props
 			line-height: 1.2;
 			margin: 0;
 
-			padding-bottom: 1rem;
+			padding-bottom: 0.5rem;
 
 			text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.7);
 		}
+	}
+
+	div.article-authors {
+		color: gray;
 	}
 
 	div#search {
@@ -393,5 +397,9 @@ const { slug } = Astro.props
 
 		background: none;
 		border: none !important;
+	}
+
+	.bug {
+		height: 3rem;
 	}
 </style>

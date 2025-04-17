@@ -1,5 +1,6 @@
 ---
 import { render, getEntry } from "astro:content"
+import UnionBug from "../../assets/images/unionbug.png"
 
 const { slug } = Astro.props
 
@@ -8,9 +9,32 @@ if (!entry) {
     throw new Error('Could not find textbook page with slug ' + slug);
 }
 const { Content, headings } = await render(entry)
+
+const authors = entry.data.authors
+let authorString = ""
+
+if (authors.length > 0) {
+    authorString = "Author: "
+} else if (authors.length > 1) {
+    authorString = "Authors: "
+}
+
+if (authors.length == 1) {
+    authorString += authors[0]
+} else if (authors.length == 2) {
+    authorString += (authors[0] + " and " + authors[1])
+} else if (authors.length >= 2) {
+    authors.slice(0, authors.length - 2).forEach((author) => {
+        authorString += (author + ", ")
+    })
+    authorString += ("and " + authors[authors.length - 1])
+}
 ---
 <div class="article-title">
     <h1 class="section" style={Math.floor(Number(entry.data.section)) == 0 ? "display:none" : ""}>{entry.data.section}</h1>
     <h1 class="title">{entry.data.title}</h1>
 </div>
+
+<div class="article-authors">{entry.data.authors.length > 1 ? "Authors" : "Author"}: {entry.data.authors.toString()}</div>
 <Content />
+<img style={entry.data.union_bug ? "" : "display:none"} class="bug" src={UnionBug.src} alt="UAW 4811">
