@@ -13,7 +13,7 @@ const { Content, headings } = await render(entry)
 const authors = entry.data.authors
 let authorString = ""
 
-if (authors.length > 0) {
+if (authors.length == 1) {
     authorString = "Author: "
 } else if (authors.length > 1) {
     authorString = "Authors: "
@@ -35,6 +35,6 @@ if (authors.length == 1) {
     <h1 class="title">{entry.data.title}</h1>
 </div>
 
-<div class="article-authors">{entry.data.authors.length > 1 ? "Authors" : "Author"}: {entry.data.authors.toString()}</div>
+<div class="article-authors">{authorString}</div>
 <Content />
 <img style={entry.data.union_bug ? "" : "display:none"} class="bug" src={UnionBug.src} alt="UAW 4811">

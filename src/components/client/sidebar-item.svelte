@@ -7,14 +7,14 @@
     let { item, selected = $bindable(), open = $bindable()}: { item : SidebarItem, selected : string, open : boolean } = $props()
 
     let content : HTMLElement;
-    let pagemap : HTMLElement;
+    let pagemapContent : HTMLElement;
 
     let items : NodeListOf<HTMLDivElement>;
     let classList = $derived(item.slug == selected ? item.classList + " active" : item.classList)
 
     onMount(() => {
         content = document.getElementById("content")!
-        pagemap = document.getElementById("pagemap")!
+        pagemapContent = document.getElementById("pagemap-content")!
 
         items = document.querySelectorAll("div.sidebar-item")
     })
@@ -30,7 +30,8 @@
         if (selected != item.slug) {
             
             selected = item.slug
-            content?.classList.add("hidden")
+            content.classList.add("hidden")
+            pagemapContent.classList.add("hidden")
 
             setTimeout(() => {
                 jQuery.get(item.url, (data) => {
@@ -38,13 +39,17 @@
 
                     history.pushState("","",item.pushUrl)
 
-                    content?.scrollTo(0,0)
-                    content?.classList.remove("hidden")
+                    content.scrollTo(0,0)
+                    content.classList.remove("hidden")
+                    pagemapContent.classList.remove("hidden")
                 })
 
+                /*
                 jQuery.get(item.pagemapUrl!, (data) => {
                     pagemap!.innerHTML = data
                 })
+                */
+                
             }, 100)
         }
     }

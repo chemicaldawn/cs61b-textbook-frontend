@@ -1,11 +1,11 @@
 ---
 import Logo from "../../assets/images/bee.png"
 import Page from "./page.astro"
-import Pagemap from "./pagemap.astro"
+import Pagemap from "../client/pagemap.svelte"
 import Search from "./search.astro"
 import Sidebar from "./sidebar.astro"
 
-const { slug } = Astro.props
+const { slug } = Astro.props;
 ---
 
 <!doctype html>
@@ -38,7 +38,7 @@ const { slug } = Astro.props
 				<Page slug={slug} />
 			</div>
 			<div id="pagemap">
-				<Pagemap slug={slug}>
+				<Pagemap client:load />
 			</div>
 		</div>
 	</body>
@@ -238,7 +238,7 @@ const { slug } = Astro.props
 		padding: 1rem;
 
 		background-color: var(--darker);
-
+		
 		div.pagemap-title {
 			color: rgb(107, 106, 104);
 		}
@@ -250,6 +250,15 @@ const { slug } = Astro.props
 
 			cursor: pointer;
 		}
+	}
+
+	div#pagemap-content {
+		opacity: 1;
+		transition: opacity 100ms ease-in-out;
+	}
+
+	div#pagemap-content.hidden {
+		opacity: 0;
 	}
 
 	div#content {
