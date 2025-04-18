@@ -45,6 +45,28 @@ const { slug } = Astro.props;
 </html>
 
 <style>
+
+	@media only screen and (max-width: 740px) {
+
+		div#header {
+			background-color: var(--darker) !important;
+		}
+
+		div#sidebar {
+			width: 75vw;
+			max-width: 75vw !important;
+			height: 100%;
+			position: fixed;
+
+			transform: translateX(-100%);
+			z-index: 2;
+		}
+
+		div#pagemap {
+			display: none;
+		}
+	}
+
 	:root {
 		
 		--dark: rgb(30, 30, 30);
@@ -283,6 +305,7 @@ const { slug } = Astro.props;
 </style>
 
 <style is:global>
+
 	h1, h2, p, li, a, div {
 		font-family: Inter;
 		color: white;
