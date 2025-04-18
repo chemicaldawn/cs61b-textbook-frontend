@@ -35,6 +35,9 @@
 
 <div class="pagemap-title">On this page</div>
 <div id="pagemap-content">
+    {#if headers && headers.length == 0}
+        <div class="pagemap-heading">🦗</div>
+    {/if}
     {#each headers as header : HTMLHeadingElement}
         <div class="pagemap-heading" on:click={() => {goToHeader(header)}}>{header.innerText}</div>
     {/each}

@@ -17,6 +17,14 @@
         pagemapContent = document.getElementById("pagemap-content")!
 
         items = document.querySelectorAll("div.sidebar-item")
+
+        if (item.startsActive) {
+            selected = item.slug
+
+            if (item.isChapter) {
+                open = true
+            }
+         }
     })
 
     function handleClick() {

@@ -116,6 +116,7 @@ const { slug } = Astro.props;
 		container-type: size;
 
 		display: flex;
+		justify-content: stretch;
 		flex-direction: row;
 		flex-grow: 1;
 	}
@@ -252,17 +253,9 @@ const { slug } = Astro.props;
 		}
 	}
 
-	div#pagemap-content {
-		opacity: 1;
-		transition: opacity 100ms ease-in-out;
-	}
-
-	div#pagemap-content.hidden {
-		opacity: 0;
-	}
-
 	div#content {
-		overflow: scroll;
+		overflow-x: hidden;
+		overflow-y: scroll;
 
 		max-height: 100cqh;
 		z-index: 1;
@@ -277,6 +270,11 @@ const { slug } = Astro.props;
 
 		opacity: 1;
 		transition: opacity 100ms ease-in-out;
+
+		img {
+			border-radius: 0.4rem;
+			max-width: 100%;
+		}
 	}
 
 	div#content.hidden {
@@ -290,6 +288,9 @@ const { slug } = Astro.props;
 		color: white;
 
 		line-height: 1.6;
+
+		scrollbar-width: 0.25rem;
+		scrollbar-color: rgba(255, 255, 255, 0.394) transparent;
 	}
 
 	h3, h4 {
@@ -411,4 +412,15 @@ const { slug } = Astro.props;
 	.bug {
 		height: 3rem;
 	}
+
+	div#pagemap-content {
+		opacity: 1;
+		transition: opacity 100ms ease-in-out;
+	}
+
+	div#pagemap-content.hidden {
+		opacity: 0;
+	}
+
+	
 </style>

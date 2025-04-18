@@ -6,8 +6,9 @@ import { textChangeRangeIsUnchanged } from "typescript";
 import SidebarComponent from "../client/sidebar.svelte"
 import { SidebarGroup, SidebarItem } from "../lib.ts"
 import type { loadRenderers } from "astro:container";
+import Slug from "../../pages/[chapter]/[slug].astro";
 
-const { map, section } = Astro.props
+const { slug } = Astro.props
 
 const groups : Map<String, SidebarGroup> = new Map();
 const items : SidebarItem[] = []
@@ -17,7 +18,7 @@ const paths = (await getCollection('textbook')).map((page) => {
     let sectionName = String(page.data.section)
     let isChapter = !String(sectionName).includes(".")
 
-    items.push(new SidebarItem(chapterName, sectionName, page.data.title, page.id, isChapter, sectionName === section))
+    items.push(new SidebarItem(chapterName, sectionName, page.data.title, page.id, isChapter, page.id === slug))
 })
 
 items.sort((a : SidebarItem, b : SidebarItem) => {
