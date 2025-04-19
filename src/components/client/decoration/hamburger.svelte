@@ -18,9 +18,12 @@
 </div>
 
 <style>
+
+
+
     #hamburger {
 
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: space-evenly;
 
@@ -52,6 +55,12 @@
 
         .bottom-line {
             transform: rotate(-45deg) translateX(0.5rem) translateY(-0.2rem) scaleX(1.1);
+        }
+    }
+
+    @media only screen and (max-width: 740px) {
+        #hamburger {
+            display: flex;
         }
     }
 </style>
