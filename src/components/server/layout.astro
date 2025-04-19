@@ -1,6 +1,6 @@
 ---
 import Logo from "../../assets/images/bee.png"
-import Hamburger from "../../assets/images/hamburger.svg"
+import Hamburger from "../client/decoration/hamburger.svelte"
 
 import Page from "./page.astro"
 import Pagemap from "../client/pagemap.svelte"
@@ -26,7 +26,7 @@ const { slug } = Astro.props;
 	</head>
 	<body>
 		<div id="header">
-			<img id="hamburger" src={Hamburger.src}/>
+			<Hamburger client:load />
 			<div id="title">
 				<img id="logo" src={Logo.src}>
 				<h1>CS61B Textbook</h1>
