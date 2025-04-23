@@ -13,7 +13,7 @@
     })
 </script>
 
-<div id="sidebar" class={open ? "open" : ""}>
+<div id="sidebar" class={open ? "container open" : "container"}>
     <div class="sidebar-title">Table of Contents</div>
     {#each groups.values() as g}
         <SidebarGroup group={g} bind:selected></SidebarGroup>

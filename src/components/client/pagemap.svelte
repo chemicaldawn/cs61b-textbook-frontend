@@ -33,7 +33,7 @@
     })
 </script>
 
-<div id="pagemap">
+<div id="pagemap" class="container">
     <div class="pagemap-title">On this page</div>
     <div id="pagemap-content">
         {#if headers && headers.length == 0}
@@ -56,11 +56,14 @@
 		background-color: light-dark(var(--background-light), var(--background-dark));
 		
 		div.pagemap-title {
-			color: rgb(107, 106, 104);
+			color: light-dark(var(--muted-light), var(--muted-dark));
 		}
 
 		div.pagemap-heading {
-			font-size: 0.925rem;
+            color: light-dark(var(--text-light), var(--text-dark));
+			font-size: var(--sidebar-size);
+            font-weight: var(--sidebar-weight);
+
 			margin-left: 0.5rem;
 			margin-top: 0.25rem;
 

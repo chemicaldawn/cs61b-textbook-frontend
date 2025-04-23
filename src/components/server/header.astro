@@ -3,15 +3,17 @@ import Logo from "../../assets/images/bee.png"
 
 import Hamburger from "../client/hamburger.svelte"
 import Search from "./search.astro"
+import Themeswitch from "../client/theme-switch.svelte"
 ---
 
-<div id="header">
+<div id="header" class="container">
     <Hamburger client:load />
     <div id="title">
         <img id="logo" src={Logo.src}>
         <h1>CS61B Textbook</h1>
     </div>
     <Search />
+    <Themeswitch client:load />
 </div>
 
 <style>

@@ -1,14 +1,16 @@
 :root {
     /* light theme */
-    --foreground-light: rgb(30, 30, 30);
-	--background-light: rgb(22, 21, 21);
-    --border-light: rgb(83, 83, 83);
+    --foreground-light: #faf6e3;
+	--background-light: #e5dece;
+    --border-light: #8d8981;
     --accent-low-light: #ffe4a5;
-    --accent-high-light: #d79921;
+    --accent-high-light: #b57614;
 
-    --text-light: #ffffff;
+    --text-light: #000000;
     --muted-light: #ffffff;
     --links-light: #79b09f;
+
+    --shadow-intensity-light: #0000000e;
 
     /* dark theme */
     --foreground-dark: rgb(30, 30, 30);
@@ -18,8 +20,10 @@
     --accent-high-dark: #d79921;
 
     --text-dark: #ffffff;
-    --muted-dark: #ffffff;
+    --muted-dark: rgb(107, 106, 104);
     --links-dark: #79b09f;
+
+    --shadow-intensity-dark: #00000068;
 
     /* text */
     --title-font: "Inter";
@@ -37,4 +41,10 @@
     --code-font: "JetBrains Mono";
     --code-size: 0.875rem;
     --code-weight: 400;
+
+    /* layout */
+    
+
+    /* animation */
+    --transition-time: 0.9s;
 }
