@@ -1,0 +1,40 @@
+:root {
+    /* light theme */
+    --foreground-light: rgb(30, 30, 30);
+	--background-light: rgb(22, 21, 21);
+    --border-light: rgb(83, 83, 83);
+    --accent-low-light: #ffe4a5;
+    --accent-high-light: #d79921;
+
+    --text-light: #ffffff;
+    --muted-light: #ffffff;
+    --links-light: #79b09f;
+
+    /* dark theme */
+    --foreground-dark: rgb(30, 30, 30);
+	--background-dark: rgb(22, 21, 21);
+    --border-dark: rgb(83, 83, 83);
+    --accent-low-dark: #ffe4a5;
+    --accent-high-dark: #d79921;
+
+    --text-dark: #ffffff;
+    --muted-dark: #ffffff;
+    --links-dark: #79b09f;
+
+    /* text */
+    --title-font: "Inter";
+    --title-size: 1rem;
+    --title-weight: 600;
+
+    --sidebar-font: "Inter";
+    --sidebar-size: 0.925rem;
+    --sidebar-weight: 400;
+
+    --paragraph-font: "Inter";
+    --paragraph-size: 1rem;
+    --paragraph-weight: 360;
+
+    --code-font: "JetBrains Mono";
+    --code-size: 0.875rem;
+    --code-weight: 400;
+}

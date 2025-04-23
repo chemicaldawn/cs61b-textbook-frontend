@@ -37,3 +37,46 @@
         </div>
     </div>
 </div>
+
+<style>
+    div.sidebar-group {
+
+        div.sidebar-chapter {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            img {
+                width: 1rem;
+                transition: transform 75ms, background-color 75ms;
+
+                border-radius: 1rem;
+                padding: 0.2rem;
+            }
+
+            img:hover {
+                background-color: rgba(255, 255, 255, 0.073);
+            }
+        }
+
+        .subitems-container {
+            display: grid;
+            grid-template-rows: 0fr;
+
+            transition: grid-template-rows 150ms ease-in-out;
+        }
+
+        .subitems-container.open {
+            grid-template-rows: 1fr;
+        }
+
+        .subitems {
+            overflow: hidden;
+        }
+    }
+
+    div.sidebar-group.open {
+        grid-template-rows: 1fr 0fr;
+    }
+</style>

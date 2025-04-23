@@ -1,11 +1,13 @@
 ---
-import Logo from "../../assets/images/bee.png"
 import Hamburger from "../client/decoration/hamburger.svelte"
 
 import Page from "./page.astro"
 import Pagemap from "../client/pagemap.svelte"
 import Search from "./search.astro"
 import Sidebar from "./sidebar.astro"
+
+import "../../style/theme.css"
+import Header from "./header.astro"
 
 const { slug } = Astro.props;
 ---
@@ -21,120 +23,20 @@ const { slug } = Astro.props;
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-	
-		<script is:inline src="/lib/jquery-min.js"></script>
 	</head>
 	<body>
-		<div id="header">
-			<Hamburger client:load />
-			<div id="title">
-				<img id="logo" src={Logo.src}>
-				<h1>CS61B Textbook</h1>
-			</div>
-			<Search></Search>
-		</div>
+		<Header />
 		<div id="main">
 			<Sidebar slug={slug}></Sidebar>
 			<div id="content">
 				<Page slug={slug} />
 			</div>
-			<div id="pagemap">
-				<Pagemap client:load />
-			</div>
+			<Pagemap client:load />
 		</div>
 	</body>
 </html>
 
 <style>
-
-	@media only screen and (max-width: 740px) {
-
-		div#header {
-			justify-content: left !important;
-			background-color: var(--darker) !important;
-
-			padding-left: 1rem !important;
-			padding-right: 1rem !important;
-
-			gap: 1rem !important
-		}
-
-		img#logo {
-			display: none !important;
-		}
-
-		div#pagemap {
-			display: none;
-		}
-	}
-
-	:root {
-		
-		--dark: rgb(30, 30, 30);
-		--darker: rgb(22, 21, 21);
-
-		--border: rgb(83, 83, 83);
-
-		--yellow: #d79921;
-		--blue: #79b09f;
-	}
-
-	html,
-	body {
-		display: flex;
-		flex-direction: column;
-		scroll-behavior: smooth;
-
-		margin: 0;
-		width: 100%;
-		height: 100%;
-
-		background-color: var(--dark)
-	}
-
-	div#title {
-
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-
-		padding: 0.25rem;
-		gap: 1rem;
-
-		img {
-			max-height: 2.5rem;
-			aspect-ratio: 1;
-		}
-		h1 {
-			font-size: 1.35rem;
-			font-weight: 700;
-		}
-	} 
-
-	div#header {
-		position: sticky;
-		top: 0;
-
-		padding-left: 2rem;
-		padding-right: 2rem;
-
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-
-		z-index: 2;
-
-		box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.454);
-
-		flex-grow: 0;
-		flex-shrink: 1;
-		background-color: var(--dark);
-
-		border-top: 0.5px solid var(--border);
-		border-bottom: 0.5px solid var(--border);
-	}
-
 	div#main {
 		container-type: size;
 
@@ -144,34 +46,14 @@ const { slug } = Astro.props;
 		flex-grow: 1;
 	}
 
-	div#pagemap {
-		flex-grow: 0;
-		min-width: 18vw;
-		max-width: 18vw;
-
-		padding: 1rem;
-
-		background-color: var(--darker);
-		
-		div.pagemap-title {
-			color: rgb(107, 106, 104);
-		}
-
-		div.pagemap-heading {
-			font-size: 0.925rem;
-			margin-left: 0.5rem;
-			margin-top: 0.25rem;
-
-			cursor: pointer;
-		}
-	}
-
 	div#content {
 		overflow-x: hidden;
 		overflow-y: scroll;
 
 		max-height: 100cqh;
 		z-index: 1;
+
+		background-color: light-dark(var(--foreground-light), var(--foreground-dark));
 		box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.454);
 
 		padding-left: 5vw;
@@ -196,62 +78,54 @@ const { slug } = Astro.props;
 </style>
 
 <style is:global>
-
-	@media only screen and (max-width: 740px) {
-		div#search {
-			display: none !important;
-		}
-
-		div#sidebar {
-			width: 75vw;
-			max-width: 75vw !important;
-			height: 100%;
-			position: fixed;
-
-			transform: translateX(-100%);
-			z-index: 2;
-
-			transition: transform 150ms ease-in-out;
-		}
-		
-		div#sidebar.open {
-			transform: translateX(0) !important;
-		}
+	:root {
+		color-scheme: light dark;
 	}
 
+	* {
+	}
 
-	h1, h2, p, li, a, div {
-		font-family: Inter;
-		color: white;
+	html, body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	body {
+		display: flex;
+		flex-direction: column;
+
+		background-color: light-dark(var(--background-light),var(--background-dark));
+	}
+
+	p, a, div, input {
+		color: light-dark(var(--text-light), var(--text-dark));
+		font-size: var(--paragraph-size);
+		font-family: var(--paragraph-font);
 
 		line-height: 1.6;
+		font-weight: 355;
+	}
 
+	h1, h2, h3, h4, h5 {
+		color: light-dark(var(--text-light), var(--text-dark))
+	}
+
+	a {
+		color: light-dark(var(--links-light), var(--links-dark))
+	}
+
+	div {
 		scrollbar-width: 0.25rem;
 		scrollbar-color: rgba(255, 255, 255, 0.394) transparent;
 	}
 
-	h3, h4 {
-		font-size: 1.25rem;
-		margin: 0.5rem 0 0 0;
-	}
-
-	p, li, a {
-		font-size: 1rem;
-		font-weight: 355;
-	}
-
-	a {
-		color: var(--blue) !important
-	}
-
 	code {
-		color: #f9f9f9;
-
-		font-family: 'JetBrains Mono';
-		font-size: 0.825rem;
+		font-family: var(--code-font);
+		font-size: var(--code-size);
+		font-weight: 400;
 
 		background-color: rgb(17, 17, 19);
-
 		border: 1px solid rgb(59, 56, 66);
 		border-radius: 0.25rem;
 
@@ -262,32 +136,34 @@ const { slug } = Astro.props;
 		white-space: nowrap;
 	}
 
-	pre.astro-code {
+	.astro-code {
 		padding: 0.9rem;
 		border-radius: 0.4rem;
 
 		display: flex;
 		flex-direction: column;
 		gap:0.05rem;
-	}
 
-	pre.astro-code code {
-		white-space: inherit !important;
-		background: none;
-		border: none;
+		code {
+			white-space: inherit !important;
+			background: none;
+			border: none;
 
-		span.line {
-			display: inline-block;
-			border-radius: 0.2rem;
-			line-height: 1;
-			padding: 2.5px;
-			width: 100%;
+			span.line {
+				display: inline-block;
+				border-radius: 0.2rem;
 
-			outline: none;
-		}
+				line-height: 1;
 
-		span.line:hover {
-			outline: 1px solid gray;
+				padding: 2.5px;
+				width: 100%;
+
+				outline: none;
+			}
+
+			span.line:hover {
+				outline: 1px solid gray;
+			}
 		}
 	}
 
@@ -301,7 +177,7 @@ const { slug } = Astro.props;
 
 		h1.section {
 			color:rgb(255, 255, 255);
-			background-color: var(--yellow);
+			background-color: light-dark(var(--accent-high-light), var(--accent-high-dark));
 			border-radius: 0.5rem;
 
 			font-size: 1.5rem;
@@ -327,148 +203,4 @@ const { slug } = Astro.props;
 	div.article-authors {
 		color: gray;
 	}
-
-	div#search {
-		padding: 0.25rem;
-		border: 0.5px solid var(--border);
-		border-radius: 0.5rem;
-
-		width: 20vw;
-		display: block;
-	}
-
-	div#sidebar {
-		flex-grow: 0;
-		min-width: 18vw;
-		max-width: 18vw;
-
-		overflow-x: hidden;
-		overflow-y: scroll;
-
-		padding: 1rem;
-
-		background-color: var(--darker);
-		border-right: 0.5px solid var(--border);
-
-		div.sidebar-group {
-
-			div.sidebar-chapter {
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				align-items: center;
-
-				img {
-					width: 1rem;
-					transition: transform 75ms, background-color 75ms;
-
-					border-radius: 1rem;2
-					padding: 0.2rem;
-				}
-
-				img:hover {
-					background-color: rgba(255, 255, 255, 0.073);
-				}
-			}
-
-			.subitems-container {
-				display: grid;
-				grid-template-rows: 0fr;
-
-				transition: grid-template-rows 150ms ease-in-out;
-			}
-
-			.subitems-container.open {
-				grid-template-rows: 1fr;
-			}
-
-			.subitems {
-				overflow: hidden;
-			}
-		}
-
-		div.sidebar-group.open {
-			grid-template-rows: 1fr 0fr;
-		}
-
-		div.sidebar-title {
-			color: rgb(107, 106, 104);
-		}
-
-		div.sidebar-item {
-
-			display: flex;
-			font-size: 0.925rem;
-			flex-direction: row;
-
-			gap: 0.75rem;
-
-			margin-top: 0.5rem;
-			margin-bottom: 0.5rem;
-
-			cursor: pointer;
-			user-select: none;
-			transition: margin 100ms;
-
-			div.section {
-				color: rgb(96, 96, 96);
-			}
-
-			div.name {
-				color: white;
-				transition: color 300ms;
-			}
-		}
-
-		div.sidebar-item:hover {
-			margin-left: 0.5rem;
-
-			div.name {
-				color: #ffe4a5 !important;
-			}
-		}
-
-		div.sidebar-item.active {
-			margin-left: 1rem !important;
-
-			div.name {
-				color: #d79921 !important;
-			}
-		}
-
-		div.sidebar-item.section {
-			padding-left: 2rem;
-			margin-top: 0rem !important;
-			margin-bottom: 0.25rem !important;
-
-			div.name {
-				color: rgb(207, 207, 207);
-			}
-		}
-	}
-
-	input {
-		width: 100%;
-
-		font-size: 0.925rem;
-		color: white;
-
-		background: none;
-		border: none !important;
-	}
-
-	.bug {
-		height: 3rem;
-	}
-
-	div#pagemap-content {
-		opacity: 1;
-		transition: opacity 100ms ease-in-out;
-	}
-
-	div#pagemap-content.hidden {
-		opacity: 0;
-	}
-
-	
 </style>

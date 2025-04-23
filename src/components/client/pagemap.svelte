@@ -33,12 +33,53 @@
     })
 </script>
 
-<div class="pagemap-title">On this page</div>
-<div id="pagemap-content">
-    {#if headers && headers.length == 0}
-        <div class="pagemap-heading">🦗</div>
-    {/if}
-    {#each headers as header : HTMLHeadingElement}
-        <div class="pagemap-heading" on:click={() => {goToHeader(header)}}>{header.innerText}</div>
-    {/each}
+<div id="pagemap">
+    <div class="pagemap-title">On this page</div>
+    <div id="pagemap-content">
+        {#if headers && headers.length == 0}
+            <div class="pagemap-heading">🦗</div>
+        {/if}
+        {#each headers as header : HTMLHeadingElement}
+            <div class="pagemap-heading" on:click={() => {goToHeader(header)}}>{header.innerText}</div>
+        {/each}
+    </div>    
 </div>
+
+<style>
+    div#pagemap {
+		flex-grow: 0;
+		min-width: 18vw;
+		max-width: 18vw;
+
+		padding: 1rem;
+
+		background-color: light-dark(var(--background-light), var(--background-dark));
+		
+		div.pagemap-title {
+			color: rgb(107, 106, 104);
+		}
+
+		div.pagemap-heading {
+			font-size: 0.925rem;
+			margin-left: 0.5rem;
+			margin-top: 0.25rem;
+
+			cursor: pointer;
+		}
+	}
+
+    @media only screen and (max-width: 740px) {
+        div#pagemap {
+            display: none;
+        }
+    }   
+
+    div#pagemap-content {
+		opacity: 1;
+		transition: opacity 100ms ease-in-out;
+	}
+
+	div#pagemap-content.hidden {
+		opacity: 0;
+	}
+</style>

@@ -3,3 +3,11 @@ title: About
 section: 0
 slug: index
 ---
+
+import KnowledgeCheck from "../src/components/client/interactive/quiz/knowledge-check.svelte"
+import Option from "../src/components/client/interactive/quiz/option.svelte"
+
+<KnowledgeCheck question="What's 9 + 10?">
+    <Option text="19" />
+    <Option text="21" />
+</KnowledgeCheck>

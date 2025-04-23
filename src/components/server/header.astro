@@ -1,0 +1,77 @@
+---
+import Logo from "../../assets/images/bee.png"
+
+import Hamburger from "../client/hamburger.svelte"
+import Search from "./search.astro"
+---
+
+<div id="header">
+    <Hamburger client:load />
+    <div id="title">
+        <img id="logo" src={Logo.src}>
+        <h1>CS61B Textbook</h1>
+    </div>
+    <Search />
+</div>
+
+<style>
+    div#header {
+		position: sticky;
+		top: 0;
+
+		padding-left: 2rem;
+		padding-right: 2rem;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		z-index: 2;
+
+        background-color: light-dark(var(--foreground-light),var(--foreground-dark));
+		box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.454);
+
+		flex-grow: 0;
+		flex-shrink: 1;
+
+		border-bottom: 0.5px solid light-dark(var(--border-light),var(--border-dark));
+	}
+
+    @media only screen and (max-width: 740px) {
+
+        div#header {
+            justify-content: left !important;
+            background-color: light-dark(var(--background-light),var(--background-dark)); !important;
+
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+
+            gap: 1rem !important
+        }
+
+        img#logo {
+            display: none !important;
+        }
+    }
+
+    div#title {
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        padding: 0.25rem;
+        gap: 1rem;
+
+        img {
+            max-height: 2.5rem;
+            aspect-ratio: 1;
+        }
+
+        h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+    } 
+</style>

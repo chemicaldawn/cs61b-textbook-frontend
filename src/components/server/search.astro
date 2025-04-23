@@ -18,10 +18,6 @@ let searchables : Searchable[] = [];
 })
 ---
 
-<div id="search">
-    <input id="search-textbox" type="text" placeholder="Search...">
-</div>
-
 <script define:vars={{searchables}}>
 
     class SearchResult {
@@ -57,3 +53,31 @@ let searchables : Searchable[] = [];
         }, 300)
     })
 </script>
+
+<div id="search">
+    <input id="search-textbox" type="text" placeholder="Search...">
+</div>
+
+<style>
+    div#search {
+		padding: 0.25rem;
+		border: 1px solid light-dark(var(--border-light), var(--border-dark));
+		border-radius: 0.5rem;
+
+		width: 20vw;
+		display: block;
+
+        input {
+            background: none;
+            border: 0;
+
+            width: 100%;
+        }
+	}
+
+    @media only screen and (max-width: 740px) {
+		div#search {
+			display: none !important;
+		}
+    }
+</style>
