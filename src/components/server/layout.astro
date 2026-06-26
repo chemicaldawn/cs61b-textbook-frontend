@@ -66,7 +66,6 @@ const { slug } = Astro.props;
 		flex-grow: 1;
 
 		opacity: 1;
-		transition: background-color var(--transition-time) ease-in-out, opacity 100ms ease-in-out;
 
 		img {
 			border-radius: 0.4rem;
@@ -114,11 +113,7 @@ const { slug } = Astro.props;
 	}
 
 	a {
-		color: light-dark(var(--links-light), var(--links-dark))
-	}
-
-	p, a, div, input, h1, h2, h3, h4, h5 {
-		transition: color 0.75s;
+		color: light-dark(var(--text-links-light), var(--text-links-dark))
 	}
 
 	div {
@@ -135,8 +130,9 @@ const { slug } = Astro.props;
 		font-size: var(--code-size);
 		font-weight: 400;
 
-		background-color: rgb(17, 17, 19);
-		border: 1px solid rgb(59, 56, 66);
+		color: light-dark(var(--code-text-light), var(--code-text-dark));
+		background-color: light-dark(var(--code-background-light), var(--code-background-dark));
+		border: 1px solid light-dark(var(--code-border-light), var(--code-border-dark));
 		border-radius: 0.25rem;
 
 		padding: 0.1rem;
@@ -146,25 +142,24 @@ const { slug } = Astro.props;
 		white-space: nowrap;
 	}
 
-	div.container {
-		transition: background-color var(--transition-time) ease-in-out, border var(--transition-time) ease-in-out;
-	}
-
 	.astro-code {
-		padding: 0.9rem;
+		padding: 0.8rem;
 		border-radius: 0.4rem;
 
-		display: flex;
-		flex-direction: column;
-		gap:0.05rem;
+		color: light-dark(var(--shiki-default),var(--shiki-dark)) !important;
+		background-color: light-dark(var(--shiki-default-bg),var(--shiki-dark-bg)) !important;
 
 		code {
 			white-space: inherit !important;
 			background: none;
 			border: none;
 
+			display: flex !important;
+			flex-direction: column;
+			gap:0.05rem;	
+
 			span.line {
-				display: inline-block;
+				display: block;
 				border-radius: 0.2rem;
 
 				line-height: 1;
@@ -180,6 +175,12 @@ const { slug } = Astro.props;
 			}
 		}
 	}
+
+	.astro-code span {
+		color: light-dark(var(--shiki-default),var(--shiki-dark)) !important;
+		background-color: light-dark(var(--shiki-default-bg),var(--shiki-dark-bg)) !important;
+	}
+	
 
 	div.article-title {
 		display: flex;

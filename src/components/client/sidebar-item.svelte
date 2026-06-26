@@ -100,8 +100,6 @@
             color: var(--text-color);
             font-size: var(--sidebar-size);
             font-weight: var(--sidebar-weight);
-
-            transition: color 300ms;
         }
     }
 
@@ -127,7 +125,7 @@
         margin-bottom: 0.25rem !important;
 
         div.name {
-            color: rgb(207, 207, 207);
+            color: light-dark(var(--text-muted-light), var(--text-muted-dark));
         }
     }
 </style>

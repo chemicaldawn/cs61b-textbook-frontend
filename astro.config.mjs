@@ -8,7 +8,11 @@ import svelte from '@astrojs/svelte';
 export default defineConfig({
   markdown: {
       shikiConfig: {
-          theme: 'gruvbox-dark-medium'
+          themes: {
+            light: 'one-dark-pro',
+            default: 'one-dark-pro',
+            dark: 'gruvbox-dark-medium'
+          } 
       },
   },
 

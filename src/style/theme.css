@@ -1,16 +1,20 @@
 :root {
     /* light theme */
-    --foreground-light: #faf6e3;
-	--background-light: #e5dece;
+    --foreground-light: #ffffff;
+	--background-light: #ffffff;
     --border-light: #8d8981;
-    --accent-low-light: #ffe4a5;
-    --accent-high-light: #b57614;
+    --accent-low-light: #3779af;
+    --accent-high-light: #3a81ba;
 
     --text-light: #000000;
-    --muted-light: #ffffff;
-    --links-light: #79b09f;
+    --text-muted-light: #232323;
+    --text-links-light: #3a81ba;
 
-    --shadow-intensity-light: #0000000e;
+    --code-text-light: #000000;
+    --code-background-light: #28282800;
+    --code-border-light: #8d898100;
+
+    --shadow-intensity-light: #5e5e5e00;
 
     /* dark theme */
     --foreground-dark: rgb(30, 30, 30);
@@ -20,8 +24,12 @@
     --accent-high-dark: #d79921;
 
     --text-dark: #ffffff;
-    --muted-dark: rgb(107, 106, 104);
-    --links-dark: #79b09f;
+    --text-muted-dark: rgb(107, 106, 104);
+    --text-links-dark: #79b09f;
+
+    --code-text-dark: #ebdbb2;
+    --code-background-dark: #282828;
+    --code-border-dark: #2c2c2b;
 
     --shadow-intensity-dark: #00000068;
 
